@@ -1,0 +1,14 @@
+# TERMinator Satellite Tracker door settings. Copy to sats.ini beside the binary.
+
+# Where callers start before they choose their own place (L changes it).
+default_place = New York, New York
+default_lat   = 40.7128
+default_lon   = -74.0060
+
+# How long orbit elements are reused before fetching again. CelesTrak asks for
+# no more than every 2 hours; they change slowly, so 8 is plenty.
+cache_hours = 8
+
+# Optional: the Weather door's saves folder. A caller who has told the Weather
+# door where they live then starts the tracker there too.
+# weather_saves = /mystic/doors/weather/saves

@@ -1,0 +1,10 @@
+door/obj/
+door/native/
+door/saves/
+door/cache/
+door/satdoor
+door/preview
+door/sats.ini
+door/earth.bin
+*.wasm
+__pycache__/
