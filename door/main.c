@@ -86,7 +86,7 @@ static void draw_menu(int term, int recommended)
     title();
     door_write(CSI "0;37m  Choose how to watch the sky:\r\n\r\n");
     if (term == TERM_TRACE)
-        door_write(CSI "1;37m  [1] " CSI "1;35mTRACE" CSI "1;37m graphics   " CSI "0;37m(live globe, mouse)    "
+        door_write(CSI "1;37m  [1] " CSI "1;32mTRACE" CSI "1;37m graphics   " CSI "0;37m(live globe, mouse)    "
                    CSI "1;32mDETECTED\r\n");
     else if (term == TERM_TRACE_OLD)
         door_write(CSI "1;30m  [1] TRACE graphics   (live globe, mouse)    " CSI "1;33mUPDATE " CSI "1;35mTERM"
