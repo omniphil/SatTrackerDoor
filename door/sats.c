@@ -148,11 +148,18 @@ static void user_dir(const char *root, char *out, size_t size, bool make)
     if (make) mkdir(out, 0755);
 }
 
+const char *sat_saves_dir(char *out, size_t size)
+{
+    char root[1100];
+    sat_beside_exe("saves", root, sizeof root);
+    user_dir(root, out, size, true);
+    return out;
+}
+
 static const char *prefs_path(char *out, size_t size)
 {
-    char root[1100], dir[1300];
-    sat_beside_exe("saves", root, sizeof root);
-    user_dir(root, dir, sizeof dir, true);
+    char dir[1300];
+    sat_saves_dir(dir, sizeof dir);
     snprintf(out, size, "%s/prefs", dir);
     return out;
 }

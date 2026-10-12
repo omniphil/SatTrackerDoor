@@ -26,12 +26,14 @@ typedef struct {
     int      utcOffset;              /* seconds east of UTC at the place */
     int      group;
     uint32_t selected;               /* NORAD number */
-    int      display;                /* start page: 1 TRACE, 2 ANSI, 0 none */
+    int      display;                /* start page: 1 TRACE, 2 ANSI, 3 JPEG XL, 0 none */
 } SatUserPrefs;
 
 extern SatConfig sat_config;
 
 const char *sat_beside_exe(const char *name, char *out, size_t size);
+/* saves/<handle>-<usernum>, made if missing. */
+const char *sat_saves_dir(char *out, size_t size);
 void sat_load_config(void);
 void sat_load_prefs(SatUserPrefs *p);
 void sat_save_prefs(const SatUserPrefs *p);
