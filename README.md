@@ -6,6 +6,16 @@ A satellite tracker door for BBSes: where the ISS and friends are right now, and
   with the day/night line where it really is. Satellites in the chosen group move across it; the one you follow shows
   its track, its footprint and its name. Below: its altitude, speed and position, its next passes over your town
   (with the visible ones marked) and a sky chart of where to look. Mouse and keyboard.
+- **JPEG XL** callers (CTerm terminals that draw JPEG XL) get the TRACE map and panels themselves: the module is
+  compiled into the door (`door/pix_sats.c`), draws on the BBS at 640x480 (its 1x size) with `earth.bin` read from beside the door,
+  and the changed parts of each frame go out as JPEG XL pictures shrunk to the caller's screen (640x400 at 80x25),
+  paced and sharpened like the News and DOOM doors' JPEG XL modes. A tile is resent only once it has drifted a
+  visible amount from what the caller has, so slowly moving satellite dots don't resend every frame, and after 3 s
+  without a key or the mouse the map is drawn 4 times a second. Keys and the mouse (xterm SGR reporting) work as in
+  TRACE. Needs libjxl on the box (loaded at run time). On the BBS box (Intel N150) about 15% of a core left alone
+  and ~45% while the mouse moves; ~10-50 KB/s left alone (more satellites in the group, more bytes), ~25-110 KB/s
+  while the mouse moves. Old terminals' X10 mouse reports work too. `SATDOOR_LOG=<file>` or `saves/<user>/jxl.log` has the frame rate and bandwidth;
+  `tools/fake_cterm.py` plays a fake CTerm terminal against the door and saves the screen as PNGs.
 - **ANSI** callers get the same live map in 24-bit half blocks at 79x24, a satellite list and the same passes.
 
 Groups: space stations, the brightest, weather, ham radio, GPS and science satellites (CelesTrak's lists).
@@ -14,7 +24,7 @@ Groups: space stations, the brightest, weather, ham radio, GPS and science satel
 
 | Piece | Where | What |
 |---|---|---|
-| `door/satdoor` | the BBS | Start menu, orbit fetch + cache (CelesTrak), place search (Open-Meteo), the ANSI view, the pipe to the module |
+| `door/satdoor` | the BBS | Start menu, orbit fetch + cache (CelesTrak), place search (Open-Meteo), the ANSI view, the JPEG XL view (the module compiled in), the pipe to the module |
 | `door/sats.wasm` | the caller's TERMinator | Draws the map and panels; runs the orbit maths every frame |
 | `door/earth.bin` | sent once, cached by TERMinator | The day and night Earth pictures (123 KB, from `tools/make_earth.py`) |
 
